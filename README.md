@@ -274,6 +274,7 @@ Durante la lectura, el tiempo entre latidos también varía a lo largo del regis
 Algunas fluctuaciones abruptas presentes en la señal de intervalos R-R pueden deberse a pequeñas imprecisiones en la detección automática de los picos R, asociadas al ruido residual y a las características propias de la señal ECG adquirida. Sin embargo, la señal obtenida permite realizar adecuadamente el análisis general de la variabilidad de la frecuencia cardíaca<br>
 
 ## PARTE C
+Con el fin de proporcionar el analisis al sujeto de prueba, se construyó el diagrama de Poincaré a partir de los intervalos R-R obtenidos en la Parte B, tanto para el segmento de reposo como para el de lectura en voz alta. Este diagrama permite visualizar de manera no lineal la variabilidad de la frecuencia cardíaca y obtener índices cuantitativos del tono simpático y parasimpático.
 
 
 #### REFERENCIAS
