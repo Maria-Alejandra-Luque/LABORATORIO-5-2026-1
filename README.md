@@ -51,6 +51,7 @@ La forma y distribución de los puntos proporcionan información sobre el equili
 Con el fin de realizar el análisis de la variabilidad de la frecuencia cardíaca (HRV), la señal electrocardiográfica adquirida fue sometida a una etapa de pre-procesamiento digital orientada a reducir el ruido y mejorar la identificación de los complejos QRS. Para ello, se diseñó e implementó un filtro digital IIR tipo Butterworth pasa banda, capaz de atenuar las componentes de baja frecuencia asociadas a la deriva de línea base y las componentes de alta frecuencia relacionadas con ruido muscular e interferencias eléctricas.<br>
 
 Posteriormente, la señal filtrada fue segmentada en dos intervalos de dos minutos correspondientes a los estados de reposo y lectura, permitiendo comparar la actividad cardíaca bajo diferentes condiciones fisiológicas. A partir de estos segmentos se identificaron los picos R del ECG y se calcularon los intervalos R-R, los cuales constituyen la base para el análisis de la variabilidad cardíaca en el dominio del tiempo.<br>
+<img width="864" height="1821" alt="image" src="https://github.com/user-attachments/assets/6f16d003-de3b-4ead-833d-1b8b5420dcbd" />
 
 ### Codigo
 ```
