@@ -337,7 +337,13 @@ Esta función genera el diagrama de Poincaré graficando RR(n) vs RR(n+1). Se a�
 
 
 ![Poincaré Reposo](Poincarevozbaja.jpeg)
+
+En el diagrama de Poincaré correspondiente al segmento de reposo se observa que los  puntos son mas dispersos y amplios, con SD1 = 257.92 ms y SD2 = 406.13 ms. Esta mayor dispersión refleja una alta variabilidad presente en la  frecuencia cardíaca, característica del predominio parasimpático durante el estado de relajación. El CVI obtenido fue de 5.0201, confirmando una actividad vagal elevada, mientras que el CSI de 1.5747 indica una actividad simpática moderada
 ![Poincaré Lectura](Poincarevozalta.jpeg)
+
+
+
+
 
 
 #### REFERENCIAS
