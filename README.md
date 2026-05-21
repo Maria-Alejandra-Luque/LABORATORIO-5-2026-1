@@ -291,6 +291,20 @@ CVI (Cardiac Vagal Index) = log₁₀(SD1 × SD2) → indica actividad parasimp�
 
 CSI (Cardiac Sympathetic Index) = SD2 / SD1 → indica actividad simpática
 
+### Código
+```
+def poincare_indices_ms(rr):
+    rr_ms = rr * 1000.0
+    if len(rr_ms) < 3:
+        return np.nan, np.nan, np.nan, np.nan
+    sd1 = np.std((rr_ms[1:] - rr_ms[:-1]) / np.sqrt(2))
+    sd2 = np.std((rr_ms[1:] + rr_ms[:-1]) / np.sqrt(2))
+    CVI = np.log10(max(sd1 * sd2, 1e-12))
+    CSI = sd2 / max(sd1, 1e-12)
+    return sd1, sd2, CVI, CSI
+```
+En esta función se convierten los intervalos R-R de segundos a milisegundos. Luego se calcula SD1 a partir de las diferencias entre intervalos consecutivos, lo que refleja la variabilidad rápida latido a latido. SD2 se obtiene a partir de la suma de intervalos consecutivos, capturando la variabilidad lenta o de largo plazo. Finalmente se calculan CVI y CSI como índices del balance autonómico
+
 #### REFERENCIAS
 [1]Researchgate.net.de https://www.researchgate.net/figure/Figura-173-Los-sistemas-simpatico-y-parasimpatico_fig2_313160220
 
