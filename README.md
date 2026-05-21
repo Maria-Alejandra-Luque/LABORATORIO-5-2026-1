@@ -305,6 +305,40 @@ def poincare_indices_ms(rr):
 ```
 En esta función se convierten los intervalos R-R de segundos a milisegundos. Luego se calcula SD1 a partir de las diferencias entre intervalos consecutivos, lo que refleja la variabilidad rápida latido a latido. SD2 se obtiene a partir de la suma de intervalos consecutivos, capturando la variabilidad lenta o de largo plazo. Finalmente se calculan CVI y CSI como índices del balance autonómico
 
+```
+def plot_poincare(rr, title, color='#2196F3'):
+    rr_ms = rr * 1000.0
+    sd1, sd2, CVI, CSI = poincare_indices_ms(rr)
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.scatter(rr_ms[:-1], rr_ms[1:], color=color, s=15, alpha=0.6)
+    lim_min = min(rr_ms) - 20
+    lim_max = max(rr_ms) + 20
+    ax.plot([lim_min, lim_max], [lim_min, lim_max],
+            'k--', lw=1, label='RR(n) = RR(n+1)')
+    ax.set_title(title, fontweight='bold', fontsize=12)
+    ax.set_xlabel('RR(n) [ms]')
+    ax.set_ylabel('RR(n+1) [ms]')
+    ax.set_xlim([lim_min, lim_max])
+    ax.set_ylim([lim_min, lim_max])
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    ax.text(0.05, 0.95,
+            f'SD1 = {sd1:.2f} ms\nSD2 = {sd2:.2f} ms\nCVI = {CVI:.4f}\nCSI = {CSI:.4f}',
+            transform=ax.transAxes,
+            verticalalignment='top',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8),
+            fontsize=10)
+    plt.tight_layout()
+    plt.show()
+
+
+```
+Esta función genera el diagrama de Poincaré graficando RR(n) vs RR(n+1). Se añade la línea  punteada como referencia visual para observar la dispersión de los puntos graficados. Los índices SD1, SD2, CVI y CSI se muestran directamente sobre la gráfica para facilitar su interpretación
+
+
+
+
+
 #### REFERENCIAS
 [1]Researchgate.net.de https://www.researchgate.net/figure/Figura-173-Los-sistemas-simpatico-y-parasimpatico_fig2_313160220
 
