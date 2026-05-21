@@ -276,6 +276,16 @@ Algunas fluctuaciones abruptas presentes en la señal de intervalos R-R pueden d
 ## PARTE C
 Con el fin de proporcionar el analisis al sujeto de prueba, se construyó el diagrama de Poincaré a partir de los intervalos R-R obtenidos en la Parte B, tanto para el segmento de reposo como para el de lectura en voz alta. Este diagrama permite visualizar de manera no lineal la variabilidad de la frecuencia cardíaca y obtener índices cuantitativos del tono simpático y parasimpático.
 
+# Diagrama de Poincaré
+El diagrama de Poincaré se construyo graficando cada intervalo R-R en función  RR(n) vs RR(n+1). La distribución de los puntos en el plano forma  elipse , de la cual se extraen dos parámetros geométricos fundamentales
+
+SD1: desviación estándar perpendicular a la línea de identidad. Refleja la variabilidad latido a latido y se asocia con la actividad parasimpática (vagal).
+SD2: desviación estándar paralela a la línea de identidad. Refleja la variabilidad global de largo plazo y se asocia con la actividad simpática.
+
+A partir de estos dos parámetros se pueden calcular los índices autonómicos definidos por Toichi et al. (1997):
+
+CVI (Cardiac Vagal Index) = log₁₀(SD1 × SD2) → indica actividad parasimpática
+CSI (Cardiac Sympathetic Index) = SD2 / SD1 → indica actividad simpática
 
 #### REFERENCIAS
 [1]Researchgate.net.de https://www.researchgate.net/figure/Figura-173-Los-sistemas-simpatico-y-parasimpatico_fig2_313160220
