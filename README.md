@@ -48,15 +48,198 @@ El diagrama de Poincaré es una representación gráfica utilizada para analizar
 La forma y distribución de los puntos proporcionan información sobre el equilibrio del sistema nervioso autónomo. Una nube de puntos más amplia y alargada suele indicar una mayor variabilidad cardíaca y un predominio parasimpático, asociado a relajación y buena adaptación del organismo. Por el contrario, una distribución más compacta puede reflejar menor variabilidad y predominio simpático, relacionado con estrés o fatiga. Debido a esto, el diagrama de Poincaré es una herramienta útil para evaluar el estado cardiovascular y la regulación autónoma del corazón.<br>
 
 ## PARTE B 
+Con el fin de realizar el análisis de la variabilidad de la frecuencia cardíaca (HRV), la señal electrocardiográfica adquirida fue sometida a una etapa de pre-procesamiento digital orientada a reducir el ruido y mejorar la identificación de los complejos QRS. Para ello, se diseñó e implementó un filtro digital IIR tipo Butterworth pasa banda, capaz de atenuar las componentes de baja frecuencia asociadas a la deriva de línea base y las componentes de alta frecuencia relacionadas con ruido muscular e interferencias eléctricas.<br>
+
+Posteriormente, la señal filtrada fue segmentada en dos intervalos de dos minutos correspondientes a los estados de reposo y lectura, permitiendo comparar la actividad cardíaca bajo diferentes condiciones fisiológicas. A partir de estos segmentos se identificaron los picos R del ECG y se calcularon los intervalos R-R, los cuales constituyen la base para el análisis de la variabilidad cardíaca en el dominio del tiempo.<br>
+
+### Codigo
+```
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import butter, lfilter
+
+data = np.loadtxt('AlejandraECG.txt')
+
+# ECG REAL -> columna 5
+ecg = data[:,5]
+
+ecg = ecg - np.mean(ecg)
+Fs = 500
+```
+Este fragmento del código importa las librerías. Luego, carga los datos desde el archivo AlejandraECG.txt y selecciona la columna 5, correspondiente a la señal de ECG real. Después, elimina el valor promedio de la señal para centrarla alrededor de cero y finalmente define la frecuencia de muestreo en 500 Hz, que indica cuántas muestras por segundo fueron tomadas.
+```
+fc1 = 0.5
+fc2 = 40
+
+low = fc1 / (Fs/2)
+high = fc2 / (Fs/2)
+orden = 4
+
+b, a = butter(
+    orden,
+    [low, high],
+    btype='band'
+)
+ecg_filtrada = lfilter(b, a, ecg)
+
+t = np.arange(len(ecg)) / Fs
+muestras = 4 * 60 * Fs
+plt.figure(figsize=(16,10))
+
+plt.subplot(2,1,1)
+
+plt.plot(
+    t[:muestras],
+    ecg[:muestras],
+    linewidth=0.7
+)
+```
+En esta parte del código se definen las frecuencias de corte del filtro pasa banda, entre 0.5 Hz y 40 Hz, para conservar únicamente las frecuencias importantes del ECG y eliminar ruido o interferencias. Luego, las frecuencias se normalizan respecto a la frecuencia de muestreo y se diseña un filtro Butterworth de orden 4. Después, el filtro se aplica a la señal ECG usando `lfilter`, obteniendo la señal filtrada. Finalmente, se crea el vector de tiempo y se prepara la gráfica de los primeros 4 minutos de la señal original para su visualización.
+
+```
+plt.title('Señal ECG Original (cruda)')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.grid()
+plt.subplot(2,1,2)
+plt.plot(
+    t[:muestras],
+    ecg_filtrada[:muestras],
+    linewidth=0.7
+)
+
+plt.title('Señal ECG Filtrada')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.grid()
+
+plt.tight_layout()
+plt.show()
+```
+En esta sección se configuran y muestran las gráficas de la señal ECG original y la señal filtrada. Primero, se añaden títulos, nombres de ejes y cuadrícula a la gráfica de la señal cruda. Luego, en una segunda subgráfica, se representa la señal ECG después del filtrado para comparar cómo se redujo el ruido y se mejoró la calidad de la señal. Finalmente, `tight_layout()` organiza automáticamente las gráficas para evitar superposiciones y `show()` muestra la figura completa en pantalla.<br>
+
+<img width="1588" height="990" alt="image" src="https://github.com/user-attachments/assets/2d51c62e-09d1-43b8-ba9f-7779a7077463" /><br>
+En las gráficas se observa la comparación entre la señal ECG original y la señal filtrada. La primera presenta más variaciones y componentes de ruido, mientras que la señal filtrada muestra una forma más limpia y estable, conservando los picos principales del ECG. Esto indica que el filtro pasa banda aplicado logró reducir interferencias y frecuencias no deseadas, mejorando la calidad de la señal para su posterior análisis.<br>
+
+### Filtro 
+<img width="600" height="800" alt="image" src="https://github.com/user-attachments/assets/9e8f1c61-2360-42a8-a76b-21f8b169d5d2" /><br>
+<img width="600" height="800" alt="image" src="https://github.com/user-attachments/assets/565badfd-860d-4aaf-a769-0d7419861af3" /><br>
+
+#### Pre-Procesamiento 
+```
+# SEGMENTOS DE 2 MINUTOS
+dos_min = 2 * 60 * Fs
+reposo = ecg_filtrada[0:dos_min]
+lectura = ecg_filtrada[dos_min:2*dos_min]
+
+# DETECCIÓN DE PICOS R
+from scipy.signal import find_peaks
+peaks_r_reposo, _ = find_peaks(
+    reposo,
+    distance=0.5*Fs,
+    prominence=np.std(reposo)
+)
+peaks_r_lectura, _ = find_peaks(
+    lectura,
+    distance=0.5*Fs,
+    prominence=np.std(lectura)
+)
+
+```
+En esta sección, la señal ECG filtrada se divide en segmentos de 2 minutos para analizar diferentes estados de la señal. Luego, utilizando la función `find_peaks`, se detectan los picos R tanto en el segmento de reposo como en el de lectura. Para ello, se establece una distancia mínima entre picos de 0.5 segundos y una prominencia basada en la desviación estándar de la señal, permitiendo identificar de manera más precisa los latidos cardíacos principales.<br>
+
+```
+# INTERVALOS R-R
+RR_reposo = np.diff(peaks_r_reposo) / Fs
+RR_lectura = np.diff(peaks_r_lectura) / Fs
+
+# TIEMPO RR
+t_rr_reposo = peaks_r_reposo[1:] / Fs
+t_rr_lectura = peaks_r_lectura[1:] / Fs
+
+# GRÁFICAS PICOS R
+
+plt.figure(figsize=(16,10))
+
+# REPOSO
+plt.subplot(2,1,1)
+plt.plot(reposo)
+plt.plot(
+    peaks_r_reposo,
+    reposo[peaks_r_reposo],
+    'ro'
+)
+plt.title('Detección de Picos R - Reposo')
+plt.xlabel('Muestras')
+plt.ylabel('Amplitud')
+plt.grid()
+```
+En esta parte del código se calculan los intervalos R-R, que corresponden al tiempo entre un latido y el siguiente, tanto para el estado de reposo como para el de lectura. Luego, se obtiene el tiempo asociado a cada intervalo para facilitar su análisis temporal. Finalmente, se genera una gráfica de la señal en reposo y se resaltan los picos R detectados con puntos rojos, permitiendo visualizar de forma clara la ubicación de cada latido cardíaco identificado.<br>
+
+```
+# LECTURA
+plt.subplot(2,1,2)
+plt.plot(lectura)
+plt.plot(
+    peaks_r_lectura,
+    lectura[peaks_r_lectura],
+    'ro'
+)
+plt.title('Detección de Picos R - Lectura')
+plt.xlabel('Muestras')
+plt.ylabel('Amplitud')
+plt.grid()
+plt.tight_layout()
+plt.show()
+
+# GRÁFICAS RR
+plt.figure(figsize=(16,8))
+
+```
+En esta sección se grafica la señal correspondiente al estado de lectura junto con los picos R detectados, marcados en color rojo para identificar visualmente cada latido cardíaco. Después, se añaden títulos, etiquetas y cuadrícula para facilitar la interpretación de la gráfica. Finalmente, `tight_layout()` organiza correctamente las subgráficas y se crea una nueva figura destinada a representar posteriormente los intervalos R-R calculados.
+
+```
+# RR REPOSO
+plt.subplot(2,1,1)
+plt.plot(
+    t_rr_reposo,
+    RR_reposo
+)
+
+plt.title('Intervalos R-R - Reposo')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Intervalo R-R [s]')
+plt.grid()
+plt.subplot(2,1,2)
+
+plt.plot(
+    t_rr_lectura,
+    RR_lectura
+)
+plt.title('Intervalos R-R - Lectura')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Intervalo R-R [s]')
+plt.grid()
+plt.tight_layout()
+plt.show()
+```
+En esta parte del código se grafican los intervalos R-R obtenidos para los estados de reposo y lectura. La primera subgráfica muestra cómo varía el tiempo entre latidos durante el reposo, mientras que la segunda representa los intervalos durante la lectura. Estas gráficas permiten analizar la variabilidad de la frecuencia cardíaca y comparar los cambios en el ritmo cardíaco entre ambas condiciones.<br>
+
+#### Graficas
+<img width="1589" height="989" alt="image" src="https://github.com/user-attachments/assets/25283bce-222f-4c75-9aea-0b2740c0fa12" />
+
+En la gráfica de detección de picos R durante el reposo se observa un comportamiento relativamente periódico de la señal cardíaca, ya que los picos aparecen distribuidos de forma bastante uniforme a lo largo del tiempo. Los puntos rojos coinciden con las máximas amplitudes positivas de cada latido, evidenciando que el algoritmo logró identificar correctamente la mayoría de complejos QRS. También se aprecia que la amplitud de los picos presenta pequeñas variaciones, lo cual es normal en señales biológicas reales debido a cambios fisiológicos y presencia de ruido residual. Además, entre cada pico existe una separación similar, indicando una frecuencia cardíaca estable propia de un estado de reposo.<br>
+
+En la gráfica correspondiente al estado de lectura se aprecia un comportamiento ligeramente más variable en comparación con el reposo. Aunque los picos R continúan apareciendo de forma periódica, algunas separaciones entre latidos cambian levemente y ciertas amplitudes presentan diferencias más notorias. Esto puede relacionarse con cambios fisiológicos producidos por la actividad de lectura, como variaciones en la concentración o en la respiración. Además, el algoritmo sigue identificando correctamente los complejos QRS principales, permitiendo observar cómo la frecuencia cardíaca mantiene un ritmo estable pero con una variabilidad ligeramente mayor respecto al estado de reposo.<br>
+
+<img width="1589" height="790" alt="image" src="https://github.com/user-attachments/assets/04412d05-7956-4e68-b065-53034cb701fa" />
+
+En la gráfica de intervalos R-R durante el reposo se observa que la mayoría de los valores oscilan aproximadamente entre 1.4 y 1.8 segundos, mostrando un comportamiento estable. Sin embargo, también aparecen algunas caídas bruscas en ciertos instantes, donde el intervalo disminuye notablemente, indicando latidos más cercanos entre sí. Estas variaciones pueden deberse a cambios fisiológicos normales, pequeñas irregularidades del ritmo o incluso errores leves en la detección de algunos picos R. Aun así, la tendencia general refleja una frecuencia cardíaca bastante constante y propia de un estado de relajación.<br>
+
+En la gráfica de intervalos R-R durante la lectura se aprecia una señal más suave y con variaciones menos abruptas en gran parte del registro. Los intervalos se mantienen principalmente entre 1.3 y 1.8 segundos, aunque se presenta una disminución marcada alrededor de los 43 segundos, lo que indica un latido más rápido en ese instante específico. Después de esta variación, la señal vuelve a estabilizarse gradualmente. En comparación con el reposo, la lectura muestra cambios más progresivos en los intervalos, sugiriendo una ligera modificación en la dinámica cardíaca asociada a la actividad de concentración y atención.<br>
 
 
 
 
-
-
-
-
-
-## PARTE B
 
 ## PARTE C
