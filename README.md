@@ -336,7 +336,8 @@ def plot_poincare(rr, title, color='#2196F3'):
 Esta función genera el diagrama de Poincaré graficando RR(n) vs RR(n+1). Se añade la línea  punteada como referencia visual para observar la dispersión de los puntos graficados. Los índices SD1, SD2, CVI y CSI se muestran directamente sobre la gráfica para facilitar su interpretación
 
 
-
+![Poincaré Reposo](Poincarevozbaja.jpeg)
+![Poincaré Lectura](Poincarevozalta.jpeg)
 
 
 #### REFERENCIAS
