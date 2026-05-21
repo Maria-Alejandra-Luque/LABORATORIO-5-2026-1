@@ -225,21 +225,61 @@ plt.show()
 ```
 En esta parte del código se grafican los intervalos R-R obtenidos para los estados de reposo y lectura. La primera subgráfica muestra cómo varía el tiempo entre latidos durante el reposo, mientras que la segunda representa los intervalos durante la lectura. Estas gráficas permiten analizar la variabilidad de la frecuencia cardíaca y comparar los cambios en el ritmo cardíaco entre ambas condiciones.<br>
 
+```
+# MEDIA RR
+media_rr_reposo = np.mean(RR_reposo)
+media_rr_lectura = np.mean(RR_lectura)
+
+# DESVIACIÓN ESTÁNDAR (SDNN)
+sdnn_reposo = np.std(RR_reposo)
+sdnn_lectura = np.std(RR_lectura)
+
+# RESULTADOS
+print('========= REPOSO =========')
+print(f'Media RR: {media_rr_reposo:.4f} s')
+print(f'SDNN: {sdnn_reposo:.4f} s')
+
+print('\n========= LECTURA =========')
+print(f'Media RR: {media_rr_lectura:.4f} s')
+print(f'SDNN: {sdnn_lectura:.4f} s')
+```
+En esta sección del código se calculan parámetros estadísticos de los intervalos R-R para analizar el comportamiento del corazón en reposo y durante la lectura. Primero, se obtiene la media de los intervalos R-R, que representa el tiempo promedio entre latidos y permite estimar qué tan rápido o lento está latiendo el corazón. Luego, se calcula la desviación estándar de los intervalos R-R (SDNN), una medida de variabilidad cardíaca que indica cuánto cambia el tiempo entre latidos a lo largo del registro. Finalmente, los resultados se imprimen en pantalla para comparar cómo varía el comportamiento cardíaco entre ambas condiciones.<br>
+
+
+|Parametro | Reposo | Lectura |
+|----------|--------|----------|
+|Media RR| 1.1729 s | 1.3282 s|
+| SDNN |0.3628 s |0.3350 s|
+
+Durante el estado de reposo predominó una mayor actividad del sistema nervioso parasimpático, generando una mayor variabilidad entre los intervalos R-R y, por tanto, un valor más alto de SDNN.<br>
+
+En contraste, durante la etapa de lectura se observó una ligera disminución de la variabilidad cardíaca, asociada al incremento de actividad simpática y a la carga cognitiva producida por la atención sostenida requerida durante la actividad. Los resultados obtenidos evidencian el efecto del balance autonómico sobre la frecuencia cardíaca y permiten observar cambios fisiológicos entre estados de relajación y actividad mental. <br>
+
+
+
 #### Graficas
 <img width="1589" height="989" alt="image" src="https://github.com/user-attachments/assets/25283bce-222f-4c75-9aea-0b2740c0fa12" />
 
 En la gráfica de detección de picos R durante el reposo se observa un comportamiento relativamente periódico de la señal cardíaca, ya que los picos aparecen distribuidos de forma bastante uniforme a lo largo del tiempo. Los puntos rojos coinciden con las máximas amplitudes positivas de cada latido, evidenciando que el algoritmo logró identificar correctamente la mayoría de complejos QRS. También se aprecia que la amplitud de los picos presenta pequeñas variaciones, lo cual es normal en señales biológicas reales debido a cambios fisiológicos y presencia de ruido residual. Además, entre cada pico existe una separación similar, indicando una frecuencia cardíaca estable propia de un estado de reposo.<br>
 
-En la gráfica correspondiente al estado de lectura se aprecia un comportamiento ligeramente más variable en comparación con el reposo. Aunque los picos R continúan apareciendo de forma periódica, algunas separaciones entre latidos cambian levemente y ciertas amplitudes presentan diferencias más notorias. Esto puede relacionarse con cambios fisiológicos producidos por la actividad de lectura, como variaciones en la concentración o en la respiración. Además, el algoritmo sigue identificando correctamente los complejos QRS principales, permitiendo observar cómo la frecuencia cardíaca mantiene un ritmo estable pero con una variabilidad ligeramente mayor respecto al estado de reposo.<br>
+“En la gráfica correspondiente al estado de lectura se aprecia un comportamiento ligeramente más variable en comparación con el reposo. Aunque los picos R continúan apareciendo de forma periódica, algunas separaciones entre latidos cambian levemente y ciertas amplitudes presentan diferencias más notorias. Esto puede relacionarse con cambios fisiológicos producidos por la actividad de lectura, como variaciones en la concentración o en la respiración. Además, el algoritmo sigue identificando correctamente los complejos QRS principales, permitiendo observar cómo la frecuencia cardíaca mantiene un ritmo estable, aunque la variabilidad observada es ligeramente menor respecto al estado de reposo. <br>
 
-<img width="1589" height="790" alt="image" src="https://github.com/user-attachments/assets/04412d05-7956-4e68-b065-53034cb701fa" />
-
-En la gráfica de intervalos R-R durante el reposo se observa que la mayoría de los valores oscilan aproximadamente entre 1.4 y 1.8 segundos, mostrando un comportamiento estable. Sin embargo, también aparecen algunas caídas bruscas en ciertos instantes, donde el intervalo disminuye notablemente, indicando latidos más cercanos entre sí. Estas variaciones pueden deberse a cambios fisiológicos normales, pequeñas irregularidades del ritmo o incluso errores leves en la detección de algunos picos R. Aun así, la tendencia general refleja una frecuencia cardíaca bastante constante y propia de un estado de relajación.<br>
-
-En la gráfica de intervalos R-R durante la lectura se aprecia una señal más suave y con variaciones menos abruptas en gran parte del registro. Los intervalos se mantienen principalmente entre 1.3 y 1.8 segundos, aunque se presenta una disminución marcada alrededor de los 43 segundos, lo que indica un latido más rápido en ese instante específico. Después de esta variación, la señal vuelve a estabilizarse gradualmente. En comparación con el reposo, la lectura muestra cambios más progresivos en los intervalos, sugiriendo una ligera modificación en la dinámica cardíaca asociada a la actividad de concentración y atención.<br>
+<img width="1589" height="790" alt="image" src="https://github.com/user-attachments/assets/59f23471-d48c-4d3a-a1b4-4d1451d79244" /><br>
 
 
+En el estado de reposo, el tiempo entre latidos cambia a lo largo de toda la señal, oscilando aproximadamente entre 0.6 y 1.9 segundos. Esto muestra que el corazón no late exactamente al mismo ritmo todo el tiempo, sino que presenta variaciones naturales propias de un estado relajado. Cuando el intervalo R-R aumenta, el corazón tarda más tiempo en volver a latir y la frecuencia cardíaca disminuye; en cambio, cuando el intervalo disminuye, los latidos ocurren más rápido. Aunque existen fluctuaciones durante los 120 segundos registrados,la tendencia general refleja una frecuencia cardíaca bastante constante y propia de un estado de relajación.<br>
 
-
+Durante la lectura, el tiempo entre latidos también varía a lo largo del registro, pero se observan tramos donde los intervalos permanecen más constantes, especialmente entre los 70 y 95 segundos. Esto indica momentos donde el corazón mantiene una frecuencia más estable mientras la persona se concentra. Sin embargo, también aparecen caídas bruscas de los intervalos R-R, como cerca de los 95 y 105 segundos, lo que representa aceleraciones momentáneas del ritmo cardíaco. En general, el comportamiento temporal muestra que el corazón responde dinámicamente a la actividad mental, alternando entre estabilidad y pequeñas aceleraciones, sugiriendo una ligera modificación en la dinámica cardíaca asociada a la actividad de concentración y atención.<br>
+Algunas fluctuaciones abruptas presentes en la señal de intervalos R-R pueden deberse a pequeñas imprecisiones en la detección automática de los picos R, asociadas al ruido residual y a las características propias de la señal ECG adquirida. Sin embargo, la señal obtenida permite realizar adecuadamente el análisis general de la variabilidad de la frecuencia cardíaca<br>
 
 ## PARTE C
+
+
+#### REFERENCIAS
+[1]Researchgate.net.de https://www.researchgate.net/figure/Figura-173-Los-sistemas-simpatico-y-parasimpatico_fig2_313160220
+
+[2]Sistema nervioso simpático. (2023, 30 octubre). Kenhub. https://www.kenhub.com/es/library/anatomia-es/sistema-nervioso-simpatico
+
+[3]Sistema nervioso parasimpático. (2023, 30 octubre). Kenhub. https://www.kenhub.com/es/library/anatomia-es/sistema-nervioso-parasimpatico
+[4]Fishman, M., Jacono, F. J., Park, S., Jamasebi, R., Thungtong, A., Loparo, K. A., & Dick, T. E. (2012). A method for analyzing temporal patterns of variability of a time series from Poincaré plots. Journal Of Applied Physiology, 113(2), 297-306. https://doi.org/10.1152/japplphysiol.01377.2010.
+[5]Hrv_Admin. (s. f.). Understanding the Poincaré plot – HRV Health. https://hrvhealth.org/blog/?p=124.
