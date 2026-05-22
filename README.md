@@ -52,9 +52,7 @@ La forma y distribución de los puntos proporcionan información sobre el equili
 ## Toma de la señal
 Para la extracción de la señal ECG, se tomo como referencia el triangulo de Einthoven
 
-
-
-<img src="img/triangulo.jpg" width="700">
+![ecg](esta.jpg)
 
 ## PARTE B 
 Con el fin de realizar el análisis de la variabilidad de la frecuencia cardíaca (HRV), la señal electrocardiográfica adquirida fue sometida a una etapa de pre-procesamiento digital orientada a reducir el ruido y mejorar la identificación de los complejos QRS. Para ello, se diseñó e implementó un filtro digital IIR tipo Butterworth pasa banda, capaz de atenuar las componentes de baja frecuencia asociadas a la deriva de línea base y las componentes de alta frecuencia relacionadas con ruido muscular e interferencias eléctricas.<br>
