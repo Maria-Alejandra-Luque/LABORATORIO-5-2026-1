@@ -13,6 +13,11 @@ En esta practica vamos a analizar la variabilidad de la frecuencia cardíaca (HR
 ## PARTE A 
 <img width="405" height="646" alt="image" src="https://github.com/user-attachments/assets/f09c40b5-a927-47cb-9919-5f8427ba733e" /><br>
 
+
+## Toma de la señal
+Para la extracción de la señal ECG, se tomo como referencia el triangulo de Einthoven
+![Poincaré Reposo](triangulo.jpeg)
+
 ## 𝘼𝙘𝙩𝙞𝙫𝙞𝙙𝙖𝙙 𝙎𝙞𝙢𝙥𝙖𝙩𝙞𝙘𝙖 𝙮 𝙋𝙖𝙧𝙖𝙨𝙞𝙢𝙥𝙖𝙩𝙞𝙘𝙖 𝙙𝙚𝙡 𝙨𝙞𝙨𝙩𝙚𝙢𝙖 𝙣𝙚𝙧𝙫𝙞𝙤𝙨𝙤 𝙖𝙪𝙩𝙤𝙣𝙤𝙢𝙤
 El cuerpo humano mantiene un equilibrio constante entre los estados de actividad y reposo gracias al sistema nervioso autónomo, encargado de controlar funciones involuntarias como la respiración, el ritmo cardíaco y la digestión. Este sistema se divide en el sistema nervioso simpático y el sistema nervioso parasimpático, que trabajan de forma complementaria.<br>
 
