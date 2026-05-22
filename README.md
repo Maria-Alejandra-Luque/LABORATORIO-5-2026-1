@@ -51,6 +51,12 @@ El diagrama de Poincaré es una representación gráfica utilizada para analizar
 La forma y distribución de los puntos proporcionan información sobre el equilibrio del sistema nervioso autónomo. Una nube de puntos más amplia y alargada suele indicar una mayor variabilidad cardíaca y un predominio parasimpático, asociado a relajación y buena adaptación del organismo. Por el contrario, una distribución más compacta puede reflejar menor variabilidad y predominio simpático, relacionado con estrés o fatiga. Debido a esto, el diagrama de Poincaré es una herramienta útil para evaluar el estado cardiovascular y la regulación autónoma del corazón.<br>
 ## Toma de la señal
 Para la extracción de la señal ECG, se tomo como referencia el triangulo de Einthoven
+
+
+
+
+
+
 ![triangulo](triangulo.jpg)
 ## PARTE B 
 Con el fin de realizar el análisis de la variabilidad de la frecuencia cardíaca (HRV), la señal electrocardiográfica adquirida fue sometida a una etapa de pre-procesamiento digital orientada a reducir el ruido y mejorar la identificación de los complejos QRS. Para ello, se diseñó e implementó un filtro digital IIR tipo Butterworth pasa banda, capaz de atenuar las componentes de baja frecuencia asociadas a la deriva de línea base y las componentes de alta frecuencia relacionadas con ruido muscular e interferencias eléctricas.<br>
