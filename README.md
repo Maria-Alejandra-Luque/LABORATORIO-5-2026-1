@@ -283,6 +283,11 @@ Algunas fluctuaciones abruptas presentes en la señal de intervalos R-R pueden d
 ## PARTE C
 Con el fin de proporcionar el analisis al sujeto de prueba, se construyó el diagrama de Poincaré a partir de los intervalos R-R obtenidos en la Parte B, tanto para el segmento de reposo como para el de lectura en voz alta. Este diagrama permite visualizar de manera no lineal la variabilidad de la frecuencia cardíaca y obtener índices cuantitativos del tono simpático y parasimpático.
 
+## Algoritmo
+
+![Texto alternativo](diagrama_flujo_parte_C_corregido2.png)
+
+
 # Diagrama de Poincaré
 El diagrama de Poincaré se construyo graficando cada intervalo R-R en función  RR(n) vs RR(n+1). La distribución de los puntos en el plano forma  elipse , de la cual se extraen dos parámetros geométricos fundamentales
 
