@@ -14,9 +14,7 @@ En esta practica vamos a analizar la variabilidad de la frecuencia cardíaca (HR
 <img width="405" height="646" alt="image" src="https://github.com/user-attachments/assets/f09c40b5-a927-47cb-9919-5f8427ba733e" /><br>
 
 
-## Toma de la señal
-Para la extracción de la señal ECG, se tomo como referencia el triangulo de Einthoven
-![triangulo](triangulo.jpeg)
+
 
 ## 𝘼𝙘𝙩𝙞𝙫𝙞𝙙𝙖𝙙 𝙎𝙞𝙢𝙥𝙖𝙩𝙞𝙘𝙖 𝙮 𝙋𝙖𝙧𝙖𝙨𝙞𝙢𝙥𝙖𝙩𝙞𝙘𝙖 𝙙𝙚𝙡 𝙨𝙞𝙨𝙩𝙚𝙢𝙖 𝙣𝙚𝙧𝙫𝙞𝙤𝙨𝙤 𝙖𝙪𝙩𝙤𝙣𝙤𝙢𝙤
 El cuerpo humano mantiene un equilibrio constante entre los estados de actividad y reposo gracias al sistema nervioso autónomo, encargado de controlar funciones involuntarias como la respiración, el ritmo cardíaco y la digestión. Este sistema se divide en el sistema nervioso simpático y el sistema nervioso parasimpático, que trabajan de forma complementaria.<br>
@@ -51,7 +49,9 @@ Una HRV alta suele asociarse con un predominio de la actividad parasimpática, i
 El diagrama de Poincaré es una representación gráfica utilizada para analizar la variabilidad de la frecuencia cardíaca (HRV) a partir de la serie de intervalos R-R obtenidos del electrocardiograma (ECG). En este diagrama, cada intervalo R-R se grafica en función del intervalo siguiente, permitiendo observar de manera visual el comportamiento y la variabilidad de los latidos cardíacos.<br>
 
 La forma y distribución de los puntos proporcionan información sobre el equilibrio del sistema nervioso autónomo. Una nube de puntos más amplia y alargada suele indicar una mayor variabilidad cardíaca y un predominio parasimpático, asociado a relajación y buena adaptación del organismo. Por el contrario, una distribución más compacta puede reflejar menor variabilidad y predominio simpático, relacionado con estrés o fatiga. Debido a esto, el diagrama de Poincaré es una herramienta útil para evaluar el estado cardiovascular y la regulación autónoma del corazón.<br>
-
+## Toma de la señal
+Para la extracción de la señal ECG, se tomo como referencia el triangulo de Einthoven
+![triangulo](triangulo.jpg)
 ## PARTE B 
 Con el fin de realizar el análisis de la variabilidad de la frecuencia cardíaca (HRV), la señal electrocardiográfica adquirida fue sometida a una etapa de pre-procesamiento digital orientada a reducir el ruido y mejorar la identificación de los complejos QRS. Para ello, se diseñó e implementó un filtro digital IIR tipo Butterworth pasa banda, capaz de atenuar las componentes de baja frecuencia asociadas a la deriva de línea base y las componentes de alta frecuencia relacionadas con ruido muscular e interferencias eléctricas.<br>
 
